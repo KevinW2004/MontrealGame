@@ -7,6 +7,7 @@ public class Player : MonoBehaviour
 {
     public float speed;
     //public Animation attack;
+    private Animator animator;
 
     private bool isMoving;
     private bool up;
@@ -16,7 +17,7 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -53,6 +54,8 @@ public class Player : MonoBehaviour
 
     private void Move()
     {
+        if (isMoving)
+            animator.SetBool("isMoving", true);
         if (up == true)
         {
             this.transform.Translate(Vector2.up * Time.deltaTime * speed, Space.World);
@@ -89,6 +92,7 @@ public class Player : MonoBehaviour
         {
             this.transform.position = new Vector2(math.round(this.transform.position.x), math.round(this.transform.position.y));
             this.transform.eulerAngles = Vector2.zero;
+            animator.SetBool("isMoving", false);
         }
     }
 
